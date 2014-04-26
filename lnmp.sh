@@ -134,8 +134,8 @@ cp php.ini-development lib/php.ini
 #创建PHP-FPM的用户和组，并修改对应的配置
 groupadd www-data
 useradd -g www-data www-data
-sed  -i 's/user = nobody$/user = www-data/g' /home/lazyphp/php-fpm.conf
-sed  -i 's/group = nobody$/group = www-data/g' /home/lazyphp/php-fpm.conf
+sed  -i 's/user = nobody$/user = www-data/g' /opt/php/etc/php-fpm.conf
+sed  -i 's/group = nobody$/group = www-data/g' /opt/php/etc/php-fpm.conf
 
 #修改PHP.ini配置
 sed  -i 's/pdo_mysql\.default_socket.*=$/pdo_mysql\.default_socket =\/opt\/mysql\/mysql\.sock/g' /opt/php/lib/php.ini
