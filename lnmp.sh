@@ -127,11 +127,15 @@ cd /opt/php
 make
 make install
 
-groupadd www-data
-useradd -g www-data www-data
-
+#移动对应的配置文件
 cp etc/php-fpm.conf.default etc/php-fpm.conf
 cp php.ini-development lib/php.ini
+
+#创建PHP-FPM的用户和组，并修改对应的配置
+groupadd www-data
+useradd -g www-data www-data
+sed  -i 's/user = nobody$/user = www-data/g' /home/lazyphp/php-fpm.conf
+sed  -i 's/group = nobody$/group = www-data/g' /home/lazyphp/php-fpm.conf
 
 #修改PHP.ini配置
 sed  -i 's/pdo_mysql\.default_socket.*=$/pdo_mysql\.default_socket =\/opt\/mysql\/mysql\.sock/g' /opt/php/lib/php.ini
@@ -162,7 +166,7 @@ echo "
 		location ~ \.php$ {
 			fastcgi_pass 127.0.0.1:9000;
 			fastcgi_index index.php;
-			fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+			fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
 			include fastcgi_params;
 		}
     }
