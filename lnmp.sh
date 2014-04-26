@@ -1,20 +1,20 @@
 #!/bin/bash
 # 先执行一次更新，防止预装的环境出问题
-# sudo apt-get update
+sudo apt-get update
 #-------------------------------预装环境----------------------------
 #nginx的编译环境
-# sudo apt-get install -y build-essential 
-# sudo apt-get install -y libtool
+sudo apt-get install -y build-essential 
+sudo apt-get install -y libtool
 
 #mysql的编译环境
-# sudo apt-get install -y cmake 
-# sudo apt-get install -y libncurses5-dev
+sudo apt-get install -y cmake 
+sudo apt-get install -y libncurses5-dev
 
 #PHP的编译环境
-# sudo apt-get install -y libxml2 libxml2-dev curl libcurl3 libcurl4-gnutls-dev libjpeg-dev libpng-dev libmcrypt-dev
+sudo apt-get install -y libxml2 libxml2-dev curl libcurl3 libcurl4-gnutls-dev libjpeg-dev libpng-dev libmcrypt-dev
 
 cd ~
-# wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.34.tar.gz
+wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.34.tar.gz
 tar -xzvf pcre-8.34.tar.gz
 mv pcre-8.34 /opt/pcre
 cd /opt/pcre
@@ -23,7 +23,7 @@ make
 make install
 
 cd ~
-#wget http://zlib.net/zlib-1.2.8.tar.gz
+wget http://zlib.net/zlib-1.2.8.tar.gz
 tar -zxvf zlib-1.2.8.tar.gz
 mv zlib-1.2.8 /opt/zlib
 cd /opt/zlib
@@ -32,12 +32,12 @@ make
 make install
 
 cd ~
-#wget http://www.openssl.org/source/openssl-1.0.1g.tar.gz
+wget http://www.openssl.org/source/openssl-1.0.1g.tar.gz
 tar -zxvf openssl-1.0.1g.tar.gz
 mv openssl-1.0.1g /opt/openssl
 
 cd ~
-#wget http://www.cmake.org/files/v2.8/cmake-2.8.4.tar.gz
+wget http://www.cmake.org/files/v2.8/cmake-2.8.4.tar.gz
 tar zxvf cmake-2.8.4.tar.gz
 mv cmake-2.8.4 /opt/cmake
 cd /opt/cmake
@@ -46,7 +46,7 @@ make
 make install
 
 cd ~
-#wget http://www.bzip.org/1.0.5/bzip2-1.0.5.tar.gz
+wget http://www.bzip.org/1.0.5/bzip2-1.0.5.tar.gz
 tar -zxvf bzip2-1.0.5.tar.gz
 mv bzip2-1.0.5 /opt/bzip2
 cd /opt/bzip2
@@ -56,7 +56,7 @@ make install
 #-------------------------------安装Nginx----------------------------
 
 cd ~
-#wget http://nginx.org/download/nginx-1.6.0.tar.gz
+wget http://nginx.org/download/nginx-1.6.0.tar.gz
 tar -xvzf nginx-1.6.0.tar.gz
 mv nginx-1.6.0 /opt/nginx
 cd /opt/nginx
@@ -73,7 +73,7 @@ groupadd mysql
 useradd -g mysql mysql -s /usr/sbin/nologin  
 mkdir /opt/mysql/data
 
-#wget http://download.softagency.net/MySQL/Downloads/MySQL-5.6/mysql-5.6.17.tar.gz
+wget http://download.softagency.net/MySQL/Downloads/MySQL-5.6/mysql-5.6.17.tar.gz
 tar -xvzf mysql-5.6.17.tar.gz
 mv mysql-5.6.17 /opt/mysql
 cd /opt/mysql
@@ -111,7 +111,7 @@ sudo chmod -R 777 /etc/init.d/mysql
 #将Mysql写入环境变量
 echo "export PATH=/opt/mysql/bin:$PATH" >>/etc/profile 
 #重新加载环境变量
-source /etc/profile 
+. /etc/profile 
 
 sudo /etc/init.d/mysql start
 
@@ -119,7 +119,7 @@ mysqladmin -u root password "123456" #设置root密码
 
 #-------------------------------安装PHP------------------------------
 cd ~
-#wget http://cn2.php.net/distributions/php-5.5.10.tar.gz
+wget http://cn2.php.net/distributions/php-5.5.10.tar.gz
 tar -xvzf php-5.5.10.tar.gz
 mv php-5.5.10 /opt/php
 cd /opt/php
@@ -131,7 +131,7 @@ groupadd www-data
 useradd -g www-data www-data
 
 cp etc/php-fpm.conf.default etc/php-fpm.conf
-cp cp php.ini-development lib/php.ini
+cp php.ini-development lib/php.ini
 
 #修改PHP.ini配置
 sed  -i 's/pdo_mysql\.default_socket.*=$/pdo_mysql\.default_socket =\/opt\/mysql\/mysql\.sock/g' /opt/php/lib/php.ini
