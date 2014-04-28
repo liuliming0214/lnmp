@@ -5,11 +5,14 @@ ubuntuSetting(){
 	# 先执行一次更新，防止预装的环境出问题
 	sudo apt-get update
 	#nginx的编译环境
-	sudo apt-get install -y build-essential 
+	sudo apt-get install -y build-essential wget 
 	sudo apt-get install -y libtool
-
+ 
 	#mysql的编译环境
-	sudo apt-get install -y libncurses5-dev
+	sudo apt-get install -y libncurses5-dev bison
+	
+	#由于Cmake编译安装，导致无法索引libncurses5-dev,只能强制指向(ubuntu12.04)
+	libncurses5="-DCURSES_LIBRARY=/usr/lib/libncurses.so -DCURSES_INCLUDE_PATH=/usr/include"
 
 	#PHP的编译环境
 	sudo apt-get install -y libxml2 libxml2-dev curl libcurl3 libcurl4-gnutls-dev libjpeg-dev libpng-dev
@@ -19,10 +22,13 @@ ubuntuSetting(){
 centosSetting(){
 	#yum -y update
 	#nginx的编译环境
-	yum -y install gcc automake autoconf libtool make gcc gcc-c++
+	yum -y install gcc automake autoconf libtool make gcc gcc-c++ wget
 	
 	#mysql的编译环境
-	yum -y install ncurses-devel  bison
+	yum -y install ncurses-devel bison
+	
+	#参考ubuntu的注释
+	libncurses5=""
 	
 	#PHP的编译环境
 	yum -y install libxml2-devel bzip2-devel curl-devel libjpeg-devel libpng-devel
@@ -99,14 +105,16 @@ installMysql(){
 	cd ~
 	groupadd mysql
 	useradd -g mysql mysql -s /usr/sbin/nologin  
-	mkdir /opt/mysql/data
+
 
 	wget http://download.softagency.net/MySQL/Downloads/MySQL-5.6/mysql-5.6.17.tar.gz
 	tar -xvzf mysql-5.6.17.tar.gz
 	mv mysql-5.6.17 /opt/mysql
+	
+	mkdir /opt/mysql/data
 	cd /opt/mysql
 
-	cmake -DCMAKE_INSTALL_PREFIX=/opt/mysql -DMYSQL_UNIX_ADDR=/opt/mysql/mysql.sock -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_MEMORY_STORAGE_ENGINE=1 -DWITH_READLINE=1 -DENABLED_LOCAL_INFILE=1 -DMYSQL_DATADIR=/opt/mysql/data -DMYSQL_USER=mysql -DMYSQL_TCP_PORT=3306 
+	cmake -DCMAKE_INSTALL_PREFIX=/opt/mysql $libncurses5 -DMYSQL_UNIX_ADDR=/opt/mysql/mysql.sock -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_MEMORY_STORAGE_ENGINE=1 -DWITH_READLINE=1 -DENABLED_LOCAL_INFILE=1 -DMYSQL_DATADIR=/opt/mysql/data -DMYSQL_USER=mysql -DMYSQL_TCP_PORT=3306 
 	make
 	make install
 
@@ -206,10 +214,13 @@ echo "
 	}
 }" >> /opt/nginx/nginx.conf
 
+	#创建访问目录
+	mkdir /var/www
+
 	#启动PHP_FPM
 	/opt/php/sbin/php-fpm
 	#启动NGINX
-	/opt/nginx/ngin
+	/opt/nginx/nginx
 }
 
 
