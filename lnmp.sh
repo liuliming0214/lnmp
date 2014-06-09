@@ -15,7 +15,7 @@ ubuntuSetting(){
 	libncurses5="-DCURSES_LIBRARY=/usr/lib/libncurses.so -DCURSES_INCLUDE_PATH=/usr/include"
 
 	#PHP的编译环境
-	sudo apt-get install -y libxml2 libxml2-dev curl libcurl3 libcurl4-gnutls-dev libjpeg-dev libpng-dev
+	sudo apt-get install -y libxml2-dev libxml2 curl libcurl3 libcurl4-gnutls-dev libjpeg-dev libpng-dev
 }
 
 #centos系统环境基础设置
