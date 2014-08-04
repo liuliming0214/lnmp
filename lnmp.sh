@@ -11,18 +11,18 @@ ubuntuSetting(){
 	#mysql的编译环境
 	sudo apt-get install -y libncurses5-dev bison
 	
-	#由于Cmake编译安装，导致无法索引libncurses5-dev,只能强制指向(ubuntu12.04)
+	#由于Cmake编译安装，导致无法索引libncurses5-dev,只能强制指向
 	libncurses5="-DCURSES_LIBRARY=/usr/lib/libncurses.so -DCURSES_INCLUDE_PATH=/usr/include"
 
 	#PHP的编译环境
-	sudo apt-get install -y libxml2-dev libxml2 curl libcurl3 libcurl4-gnutls-dev libjpeg-dev libpng-dev
+	sudo apt-get install -y libxml2-dev libxml2 curl libcurl3 libcurl4-gnutls-dev libjpeg-dev libpng-dev autoconf libfreetype6-dev
 }
 
 #centos系统环境基础设置
 centosSetting(){
 	#yum -y update
 	#nginx的编译环境
-	yum -y install gcc automake autoconf libtool make gcc gcc-c++ wget
+	yum -y install gcc automake libtool make gcc gcc-c++ wget
 	
 	#mysql的编译环境
 	yum -y install ncurses-devel bison
@@ -31,7 +31,7 @@ centosSetting(){
 	libncurses5=""
 	
 	#PHP的编译环境
-	yum -y install libxml2-devel bzip2-devel curl-devel libjpeg-devel libpng-devel
+	yum -y install libxml2-devel bzip2-devel curl-devel libjpeg-devel libpng-devel autoconf
 
 	
 }
@@ -165,7 +165,7 @@ installPHP(){
 	tar -xvzf php-5.5.10.tar.gz
 	mv php-5.5.10 /opt/php
 	cd /opt/php
-	./configure --prefix=/opt/php  --enable-fpm --enable-mbstring --disable-pdo --with-curl --disable-debug  --disable-rpath --enable-inline-optimization --with-bz2  --with-zlib --enable-sockets --enable-sysvsem --enable-sysvshm --enable-pcntl --enable-mbregex --enable-pdo --with-mhash --enable-zip --with-pcre-regex --with-mysql --with-mysqli --with-pdo_mysql --with-gd --with-jpeg-dir
+	./configure --prefix=/opt/php  --enable-fpm --enable-mbstring --disable-pdo --with-curl --disable-debug  --disable-rpath --enable-inline-optimization --with-bz2  --with-zlib --enable-sockets --enable-sysvsem --enable-sysvshm --enable-pcntl --enable-mbregex --enable-pdo --with-mhash --enable-zip --with-pcre-regex --with-mysql --with-mysqli --with-pdo_mysql --with-gd --with-jpeg-dir --with-freetype-dir
 	make
 	make install
 
