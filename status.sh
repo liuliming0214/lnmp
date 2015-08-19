@@ -6,6 +6,8 @@ echo "3. 重启PHP-FPM"
 echo "4. 重启LNMP"
 echo "5. 启动LNMP"
 echo "6. 停止LNMP"
+echo "7. 添加新域名"
+echo "请输入数字:"
 read num
 
 case "$num" in
@@ -58,6 +60,44 @@ kill -9 `ps -aux | grep php-fpm| awk -F' ' '{print $2}'`
 kill -9 `ps -aux | grep nginx| awk -F' ' '{print $2}'`
 /etc/init.d/mysql stop
 echo 'LNMP已经停止！'
+;;
+[7] )
+echo "请输入域名"
+read domain
+echo "是否开启重写[y/n]"
+read rewrite
+rewriteStr=""
+if [ $rewrite = "y" ]
+then
+    rewriteStr="
+    location ~/ {
+      if (!-e \$request_filename){
+        rewrite  ^/(.*)\$  /index.php?s=\$1 last;
+      }
+    }"
+fi
+echo "
+server {
+    listen       80;
+    server_name $domain;
+    root /var/www;
+    index index.html index.htm index.php;
+    access_log  /opt/nginx/log/$domain.access.log;
+    error_log  /opt/nginx/log/$domain.error.log;
+
+    location / {
+
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
+        include fastcgi_params;
+    }
+    
+    $rewriteStr
+}">> /opt/nginx/vhost/$domain.conf
 ;;
 *) echo "没有任何操作，脚本退出";;
 esac
