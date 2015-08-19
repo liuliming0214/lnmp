@@ -18,7 +18,8 @@ download(){
     cd ~
     wget --no-check-certificate https://www.pescms.com/lnmp/$1
     #确保文件能够被正确下载
-    if [ ! -f $1 ]; then
+    if [ ! -f $1 ]
+    then
       download $1
     fi
 }
