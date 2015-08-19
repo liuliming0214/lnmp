@@ -117,7 +117,7 @@ cd ~
 groupadd mysql
 useradd -g mysql mysql -s /usr/sbin/nologin  
 
-tar -xvzf mysql-5.6.23.tar.gz
+tar -xvzf mysql-5.6.25.tar.gz
 mv mysql-5.6.25 /opt/mysql
 
 mkdir /opt/mysql/data
