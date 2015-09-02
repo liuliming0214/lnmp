@@ -11,7 +11,7 @@ sudo apt-get install -y libtool
 sudo apt-get install -y libncurses5-dev bison
 
 #PHP的编译环境
-sudo apt-get install -y cmake libxml2-dev libxml2 curl libcurl3 libcurl4-gnutls-dev libjpeg-dev libpng-dev autoconf libfreetype6-dev
+sudo apt-get install -y cmake libxml2-dev libxml2 curl libcurl3 libcurl4-gnutls-dev libjpeg-dev libpng-dev autoconf libfreetype6-dev libcurl4-openssl-dev
 
 #下载要安装的文件
 download(){
@@ -133,12 +133,12 @@ chmod -R 777 scripts/mysql_install_db
 
 
 scripts/mysql_install_db --basedir=/opt/mysql --datadir=/opt/mysql/data --user=mysql 
-cp support-files/my-default.cnf /opt/mysql/my.cnf
+#cp support-files/my-default.cnf /opt/mysql/my.cnf
 
 #将MYSQL的配置信息写入配置文件
-echo "
+touch /opt/mysql/my.cnf
+echo "[mysqld]
 sql_mode=NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION 
-[mysqld]
 basedir = /opt/mysql  
 datadir = /opt/mysql/data  
 log-error = /opt/mysql/log/mysql_error.log

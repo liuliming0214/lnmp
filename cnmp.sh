@@ -129,22 +129,22 @@
 
 
 	scripts/mysql_install_db --basedir=/opt/mysql --datadir=/opt/mysql/data --user=mysql
-	cp support-files/my-default.cnf /opt/mysql/my.cnf
+	# cp support-files/my-default.cnf /opt/mysql/my.cnf
 
 	#将MYSQL的配置信息写入配置文件
-	echo "
-	sql_mode=NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
-	[mysqld]
-	basedir = /opt/mysql
-	datadir = /opt/mysql/data
-	log-error = /opt/mysql/log/mysql_error.log
-	long_query_time=1
-	slow_query_log=1
-	slow_query_log_file=/opt/mysql/log/slow-query.log
-	pid-file = /opt/mysql/mysql.pid
-	socket = /opt/mysql/mysql.sock
-	user = mysql
-	tmpdir          = /tmp ">>/opt/mysql/my.cnf
+    touch /opt/mysql/my.cnf
+    echo "[mysqld]
+    sql_mode=NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION 
+    basedir = /opt/mysql  
+    datadir = /opt/mysql/data  
+    log-error = /opt/mysql/log/mysql_error.log
+    long_query_time=1
+    slow_query_log=1
+    slow_query_log_file=/opt/mysql/log/slow-query.log
+    pid-file = /opt/mysql/mysql.pid  
+    socket = /opt/mysql/mysql.sock
+    user = mysql  
+    tmpdir          = /tmp ">>/opt/mysql/my.cnf
 
 	#配置用户权限
 	sudo chown -R mysql:mysql /opt/mysql
