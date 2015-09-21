@@ -4,9 +4,10 @@
 # 先执行一次更新，防止预装的环境出问题
 sudo apt-get update
 
-sudo apt-get install -y build-essential wget cmake libxml2-dev libxml2 curl libcurl3 libcurl4-gnutls-dev libjpeg-dev libpng-dev autoconf libfreetype6-dev libcurl4-openssl-dev libncurses5-dev bison libtool
-
-sudo apt-get install -y build-essential wget cmake libxml2-dev libxml2 curl libcurl3 libcurl4-gnutls-dev libjpeg-dev libpng-dev autoconf libfreetype6-dev libcurl4-openssl-dev libncurses5-dev bison libtool
+sudo apt-get install -y build-essential wget cmake libxml2-dev libxml2 curl libcurl3 
+sudo apt-get install -y libcurl4-gnutls-dev libjpeg-dev libpng-dev autoconf libfreetype6-dev bison libtool
+#好像这里会冲突 ubuntu 14.04.3
+sudo apt-get install -y libcurl4-openssl-dev libncurses5-dev
 
 
 #下载要安装的文件
