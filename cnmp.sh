@@ -114,21 +114,23 @@
 	useradd -g mysql mysql -s /usr/sbin/nologin
 
 	tar -xvzf mysql-5.6.25.tar.gz
-	mv mysql-5.6.25 /opt/mysql
-
+	cd mysql-5.6.25
+    
+    mkdir /opt/mysql/
 	mkdir /opt/mysql/data
 	mkdir /opt/mysql/log
-	cd /opt/mysql
 
 	cmake -DCMAKE_INSTALL_PREFIX=/opt/mysql -DMYSQL_UNIX_ADDR=/opt/mysql/mysql.sock -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_MEMORY_STORAGE_ENGINE=1 -DWITH_READLINE=1 -DENABLED_LOCAL_INFILE=1 -DMYSQL_DATADIR=/opt/mysql/data -DMYSQL_USER=mysql -DMYSQL_TCP_PORT=3306
 	make
 	make install
 
+    
+	cd /opt/mysql
 	#赋予权限，避免执行时出错
-	chmod -R 777 scripts/mysql_install_db
+	chmod -R 777 /opt/mysql/scripts/mysql_install_db
 
 
-	scripts/mysql_install_db --basedir=/opt/mysql --datadir=/opt/mysql/data --user=mysql
+	/opt/mysql/scripts/mysql_install_db --basedir=/opt/mysql --datadir=/opt/mysql/data --user=mysql
 	# cp support-files/my-default.cnf /opt/mysql/my.cnf
 
 	#将MYSQL的配置信息写入配置文件
@@ -172,7 +174,7 @@
 	tar -xvzf php-5.6.12.tar.gz
 	mv php-5.6.12 /opt/php
 	cd /opt/php
-	./configure --prefix=/opt/php  --enable-fpm --enable-mbstring --disable-pdo --with-curl --disable-debug  --disable-rpath --enable-inline-optimization --with-bz2  --with-zlib --enable-sockets --enable-sysvsem --enable-sysvshm --enable-pcntl --enable-mbregex --enable-pdo --with-mhash --enable-zip --with-pcre-regex --with-mysql --with-mysqli --with-pdo_mysql --with-gd --with-jpeg-dir --with-freetype-dir
+	./configure --prefix=/opt/php  --enable-fpm --enable-mbstring --disable-pdo --disable-debug  --disable-rpath --enable-inline-optimization --with-bz2  --with-zlib --enable-sockets --enable-sysvsem --enable-sysvshm --enable-pcntl --enable-mbregex --enable-pdo --with-mhash --enable-zip --with-pcre-regex --with-mysql --with-mysqli --with-pdo_mysql --with-gd --with-jpeg-dir --with-freetype-dir
 	make
 	make install
 
