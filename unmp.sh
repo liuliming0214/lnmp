@@ -1,23 +1,20 @@
 #!/bin/bash
 
-#ubuntuÏµÍ³»·¾³»ù´¡ÉèÖÃ
-# ÏÈÖ´ĞĞÒ»´Î¸üĞÂ£¬·ÀÖ¹Ô¤×°µÄ»·¾³³öÎÊÌâ
+#ubuntuç³»ç»Ÿç¯å¢ƒåŸºç¡€è®¾ç½®
+# å…ˆæ‰§è¡Œä¸€æ¬¡æ›´æ–°ï¼Œé˜²æ­¢é¢„è£…çš„ç¯å¢ƒå‡ºé—®é¢˜
 sudo apt-get update
-#nginxµÄ±àÒë»·¾³
-sudo apt-get install -y build-essential wget 
-sudo apt-get install -y libtool
 
-#mysqlµÄ±àÒë»·¾³
-sudo apt-get install -y libncurses5-dev bison
+sudo apt-get install -y build-essential wget cmake libxml2-dev libxml2 curl libcurl3 
+sudo apt-get install -y libcurl4-gnutls-dev libjpeg-dev libpng-dev autoconf libfreetype6-dev bison libtool
+#å¥½åƒè¿™é‡Œä¼šå†²çª ubuntu 14.04.3
+sudo apt-get install -y libcurl4-openssl-dev libncurses5-dev
 
-#PHPµÄ±àÒë»·¾³
-sudo apt-get install -y cmake libxml2-dev libxml2 curl libcurl3 libcurl4-gnutls-dev libjpeg-dev libpng-dev autoconf libfreetype6-dev libcurl4-openssl-dev
 
-#ÏÂÔØÒª°²×°µÄÎÄ¼ş
+#ä¸‹è½½è¦å®‰è£…çš„æ–‡ä»¶
 download(){
     cd ~
     wget --no-check-certificate https://www.pescms.com/lnmp/$1
-    #È·±£ÎÄ¼şÄÜ¹»±»ÕıÈ·ÏÂÔØ
+    #ç¡®ä¿æ–‡ä»¶èƒ½å¤Ÿè¢«æ­£ç¡®ä¸‹è½½
     if [ ! -f $1 ]
     then
       download $1
@@ -32,7 +29,7 @@ download "nginx-1.8.0.tar.gz"
 download "mysql-5.6.25.tar.gz"
 download "php-5.6.12.tar.gz"
 
-#-------------------------------±àÒëÏµÍ³±ØÒªµÄÎÄ¼ş----------------------------
+#-------------------------------ç¼–è¯‘ç³»ç»Ÿå¿…è¦çš„æ–‡ä»¶----------------------------
 cd ~
 tar -xzvf pcre-8.36.tar.gz
 mv pcre-8.36 /opt/pcre
@@ -62,7 +59,7 @@ make install
 
 
 
-#-------------------------------°²×°Nginx----------------------------
+#-------------------------------å®‰è£…Nginx----------------------------
 cd ~
 tar -xvzf nginx-1.8.0.tar.gz
 mv nginx-1.8.0 /opt/nginx
@@ -76,7 +73,7 @@ make install
 mkdir /opt/nginx/vhost
 mkdir /opt/nginx/log
 
-	#ÅäÖÃnginxÖ§³ÖPHP-FPM
+	#é…ç½®nginxæ”¯æŒPHP-FPM
 	sed -i '18,$d' /opt/nginx/nginx.conf
 echo "
 	include       mime.types;
@@ -112,7 +109,7 @@ server {
 }">> /opt/nginx/vhost/localhost.conf
 
 
-#-------------------------------°²×°Mysql----------------------------
+#-------------------------------å®‰è£…Mysql----------------------------
 cd ~
 groupadd mysql
 useradd -g mysql mysql -s /usr/sbin/nologin  
@@ -128,14 +125,14 @@ cmake -DCMAKE_INSTALL_PREFIX=/opt/mysql -DCURSES_LIBRARY=/usr/lib/libncurses.so 
 make
 make install
 
-#¸³ÓèÈ¨ÏŞ£¬±ÜÃâÖ´ĞĞÊ±³ö´í
+#èµ‹äºˆæƒé™ï¼Œé¿å…æ‰§è¡Œæ—¶å‡ºé”™
 chmod -R 777 scripts/mysql_install_db 
 
 
 scripts/mysql_install_db --basedir=/opt/mysql --datadir=/opt/mysql/data --user=mysql 
 #cp support-files/my-default.cnf /opt/mysql/my.cnf
 
-#½«MYSQLµÄÅäÖÃĞÅÏ¢Ğ´ÈëÅäÖÃÎÄ¼ş
+#å°†MYSQLçš„é…ç½®ä¿¡æ¯å†™å…¥é…ç½®æ–‡ä»¶
 touch /opt/mysql/my.cnf
 echo "[mysqld]
 sql_mode=NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION 
@@ -150,28 +147,28 @@ socket = /opt/mysql/mysql.sock
 user = mysql  
 tmpdir          = /tmp ">>/opt/mysql/my.cnf
 
-#ÅäÖÃÓÃ»§È¨ÏŞ
+#é…ç½®ç”¨æˆ·æƒé™
 sudo chown -R mysql:mysql /opt/mysql
 
 cp /opt/mysql/support-files/mysql.server /etc/init.d/mysql
 
-#¸³ÓèÈ¨ÏŞ£¬±ÜÃâÖ´ĞĞ³ö´í
+#èµ‹äºˆæƒé™ï¼Œé¿å…æ‰§è¡Œå‡ºé”™
 sudo chmod -R 777 /etc/init.d/mysql
 
-#Çå¿ÕÒ»´Î´æÔÚµÄÏµÍ³±äÁ¿
+#æ¸…ç©ºä¸€æ¬¡å­˜åœ¨çš„ç³»ç»Ÿå˜é‡
 sed  -i 's/export PATH=.*$//g' /etc/profile
-#½«MysqlĞ´Èë»·¾³±äÁ¿
+#å°†Mysqlå†™å…¥ç¯å¢ƒå˜é‡
 echo "export PATH=/opt/mysql/bin:$PATH" >>/etc/profile 
 
-#ÖØĞÂ¼ÓÔØ»·¾³±äÁ¿
+#é‡æ–°åŠ è½½ç¯å¢ƒå˜é‡
 . /etc/profile 
 
 /etc/init.d/mysql start
 
-mysqladmin -u root password "123456" #ÉèÖÃrootÃÜÂë
+mysqladmin -u root password "123456" #è®¾ç½®rootå¯†ç 
 
 
-#-------------------------------°²×°PHP------------------------------
+#-------------------------------å®‰è£…PHP------------------------------
 cd ~
 tar -xvzf php-5.6.12.tar.gz
 mv php-5.6.12 /opt/php
@@ -180,29 +177,29 @@ cd /opt/php
 make
 make install
 
-#ÒÆ¶¯¶ÔÓ¦µÄÅäÖÃÎÄ¼ş
+#ç§»åŠ¨å¯¹åº”çš„é…ç½®æ–‡ä»¶
 cp etc/php-fpm.conf.default etc/php-fpm.conf
 cp php.ini-development lib/php.ini
 
-#´´½¨PHP-FPMµÄÓÃ»§ºÍ×é£¬²¢ĞŞ¸Ä¶ÔÓ¦µÄÅäÖÃ
+#åˆ›å»ºPHP-FPMçš„ç”¨æˆ·å’Œç»„ï¼Œå¹¶ä¿®æ”¹å¯¹åº”çš„é…ç½®
 groupadd www-data
 useradd -g www-data www-data
 sed  -i 's/user = nobody$/user = www-data/g' /opt/php/etc/php-fpm.conf
 sed  -i 's/group = nobody$/group = www-data/g' /opt/php/etc/php-fpm.conf
 
-#ĞŞ¸ÄPHP.iniÅäÖÃ
+#ä¿®æ”¹PHP.inié…ç½®
 sed  -i 's/pdo_mysql\.default_socket.*=$/pdo_mysql\.default_socket =\/opt\/mysql\/mysql\.sock/g' /opt/php/lib/php.ini
 sed  -i 's/mysqli\.default_socket.*=$/mysqli\.default_socket =\/opt\/mysql\/mysql\.sock/g' /opt/php/lib/php.ini
 sed  -i 's/mysql\.default_socket.*=$/mysql\.default_socket =\/opt\/mysql\/mysql\.sock/g' /opt/php/lib/php.ini
 
-#´´½¨·ÃÎÊÄ¿Â¼
+#åˆ›å»ºè®¿é—®ç›®å½•
 mkdir /var/www
 
-#Æô¶¯PHP_FPM
+#å¯åŠ¨PHP_FPM
 /opt/php/sbin/php-fpm
-#Æô¶¯NGINX
+#å¯åŠ¨NGINX
 /opt/nginx/nginx
 
 
-#-------------------------------ÏÂÔØ¹ÜÀí½Å±¾------------------------------
+#-------------------------------ä¸‹è½½ç®¡ç†è„šæœ¬------------------------------
 wget --no-check-certificate https://www.pescms.com/status.sh
