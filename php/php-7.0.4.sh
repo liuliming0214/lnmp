@@ -10,12 +10,13 @@
 	#移动对应的配置文件
 	cp etc/php-fpm.conf.default etc/php-fpm.conf
 	cp php.ini-development lib/php.ini
+    cp etc/php-fpm.d/www.conf.default etc/php-fpm.d/www.conf
 
 	#创建PHP-FPM的用户和组，并修改对应的配置
 	groupadd www-data
 	useradd -g www-data www-data
-	sed  -i 's/user = nobody$/user = www-data/g' /opt/php/etc/php-fpm.conf
-	sed  -i 's/group = nobody$/group = www-data/g' /opt/php/etc/php-fpm.conf
+	sed  -i 's/user = nobody$/user = www-data/g' /opt/php/etc/php-fpm.d/www.conf
+	sed  -i 's/group = nobody$/group = www-data/g' /opt/php/etc/php-fpm.d/www.conf
 
 	#修改PHP.ini配置
 	sed  -i 's/mysqli\.default_socket.*=$/mysqli\.default_socket =\/opt\/mysql\/mysql\.sock/g' /opt/php/lib/php.ini
