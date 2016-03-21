@@ -202,4 +202,4 @@ mkdir /var/www
 
 
 #-------------------------------下载管理脚本------------------------------
-wget --no-check-certificate https://www.pescms.com/status.sh
+wget --no-check-certificate https://www.pescms.com/lnmp/status.sh
