@@ -21,9 +21,8 @@
 
 
 	/opt/mysql/scripts/mysql_install_db --basedir=/opt/mysql --datadir=/opt/mysql/data --user=mysql
+    #5.5是的配置文件是存放在/etc目录下的
 	cp -uf support-files/my-large.cnf  /etc/my.cnf
-
-	#将MYSQL的配置信息写入配置文件
 
 	#配置用户权限
 	sudo chown -R mysql:mysql /opt/mysql

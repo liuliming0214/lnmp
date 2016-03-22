@@ -97,14 +97,15 @@ cd ~
 tar -zxvf openssl-1.0.2d.tar.gz
 mv openssl-1.0.2d /opt/openssl
 #cd /opt/openssl
-#./config shared zlib
-#make && make install
-#mv /usr/bin/openssl /usr/bin/openssl.old
-#mv /usr/include/openssl /usr/include/openssl.old
-#ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl
-#ln -s /usr/local/ssl/include/openssl /usr/include/openssl
-#echo "/usr/local/ssl/lib" >> /etc/ld.so.conf
-#ldconfig -v
+./config --prefix=/usr/local/ssl shared zlib
+make && make install
+mv /usr/bin/openssl /usr/bin/openssl.old
+mv /usr/include/openssl /usr/include/openssl.old
+ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl
+ln -s /usr/local/ssl/include/openssl /usr/include/openssl
+echo "/usr/local/ssl/lib" >> /etc/ld.so.conf
+ldconfig -v
+
 
 cd ~
 tar -zxvf bzip2-1.0.5.tar.gz

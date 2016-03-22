@@ -13,7 +13,7 @@ read num
 case "$num" in
 [1] ) 
 echo '执行关闭Nginx进程...'
-kill -9 `ps -aux | grep nginx| awk -F' ' '{print $2}'`
+/opt/nginx/nginx -s stop
 echo '进行重启Nginx...'
 /opt/nginx/nginx
 echo '已成功重启Nginx!'
@@ -38,7 +38,7 @@ echo '进行重启php-fpm...'
 /opt/php/sbin/php-fpm
 echo '已成功重启php-fpm!'
 echo '执行关闭Nginx进程...'
-kill -9 `ps -aux | grep nginx| awk -F' ' '{print $2}'`
+/opt/nginx/nginx -s stop
 echo '进行重启Nginx...'
 /opt/nginx/nginx
 echo '已成功重启Nginx!'
@@ -57,7 +57,7 @@ echo 'LNMP已经成功启动！'
 [6] ) 
 echo '停止LNMP中...'
 kill -9 `ps -aux | grep php-fpm| awk -F' ' '{print $2}'`
-kill -9 `ps -aux | grep nginx| awk -F' ' '{print $2}'`
+/opt/nginx/nginx -s stop
 /etc/init.d/mysql stop
 echo 'LNMP已经停止！'
 ;;

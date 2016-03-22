@@ -48,7 +48,7 @@
 	cd ~
 	tar -zxvf openssl-1.0.2d.tar.gz
 	mv openssl-1.0.2d /opt/openssl
-    ./config shared zlib
+    ./config --prefix=/usr/local/ssl shared zlib
     make && make install
     mv /usr/bin/openssl /usr/bin/openssl.old
     mv /usr/include/openssl /usr/include/openssl.old

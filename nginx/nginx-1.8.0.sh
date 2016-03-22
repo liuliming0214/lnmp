@@ -46,3 +46,5 @@
 	        include fastcgi_params;
 	    }
 	}">> /opt/nginx/vhost/localhost.conf
+    
+    ln -s /opt/nginx/nginx /usr/bin/
