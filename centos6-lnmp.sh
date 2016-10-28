@@ -26,7 +26,7 @@ esac
 
 echo "请选择PHP版本，输入对应版本数字:"
 echo "1. php-5.6.12"
-echo "1. php-7.0.4"
+echo "2. php-7.0.4"
 read php
 
 case "$php" in
