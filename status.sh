@@ -80,7 +80,7 @@ echo "
 server {
     listen       80;
     server_name $domain;
-    root /var/www;
+    root /var/www/$domain;
     index index.html index.htm index.php;
     access_log  /opt/nginx/log/$domain.access.log;
     error_log  /opt/nginx/log/$domain.error.log;

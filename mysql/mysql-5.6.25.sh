@@ -108,3 +108,48 @@ write_buffer = 4M ">>/etc/my.cnf
 	/etc/init.d/mysql start
 
 	mysqladmin -u root password "123456" #设置root密码
+    
+ln -s /opt/mysql/bin/innochecksum /usr/bin/
+ln -s /opt/mysql/bin/mysql /usr/bin/
+ln -s /opt/mysql/bin/mysql_client_test /usr/bin/
+ln -s /opt/mysql/bin/mysqld_safe /usr/bin/
+ln -s /opt/mysql/bin/mysqlimport /usr/bin/
+ln -s /opt/mysql/bin/mysqltest_embedded /usr/bin/
+ln -s /opt/mysql/bin/resolveip /usr/bin/
+ln -s /opt/mysql/bin/msql2mysql /usr/bin/
+ln -s /opt/mysql/bin/mysqlaccess /usr/bin/
+ln -s /opt/mysql/bin/mysql_client_test_embedded /usr/bin/
+ln -s /opt/mysql/bin/mysqldump /usr/bin/
+ln -s /opt/mysql/bin/mysql_plugin /usr/bin/
+ln -s /opt/mysql/bin/mysql_tzinfo_to_sql /usr/bin/
+ln -s /opt/mysql/bin/resolve_stack_dump /usr/bin/
+ln -s /opt/mysql/bin/myisamchk /usr/bin/
+ln -s /opt/mysql/bin/mysqlaccess.conf /usr/bin/
+ln -s /opt/mysql/bin/mysql_config /usr/bin/
+ln -s /opt/mysql/bin/mysqldumpslow /usr/bin/
+ln -s /opt/mysql/bin/mysql_secure_installation /usr/bin/
+ln -s /opt/mysql/bin/mysql_upgrade /usr/bin/
+ln -s /opt/mysql/bin/myisam_ftdump /usr/bin/
+ln -s /opt/mysql/bin/mysqladmin /usr/bin/
+ln -s /opt/mysql/bin/mysql_config_editor /usr/bin/
+ln -s /opt/mysql/bin/mysql_embedded /usr/bin/
+ln -s /opt/mysql/bin/mysql_setpermission /usr/bin/
+ln -s /opt/mysql/bin/mysql_waitpid /usr/bin/
+ln -s /opt/mysql/bin/myisamlog /usr/bin/
+ln -s /opt/mysql/bin/mysqlbinlog /usr/bin/
+ln -s /opt/mysql/bin/mysql_convert_table_format /usr/bin/
+ln -s /opt/mysql/bin/mysql_find_rows /usr/bin/
+ln -s /opt/mysql/bin/mysqlshow /usr/bin/
+ln -s /opt/mysql/bin/mysql_zap /usr/bin/
+ln -s /opt/mysql/bin/myisampack /usr/bin/
+ln -s /opt/mysql/bin/mysqlbug /usr/bin/
+ln -s /opt/mysql/bin/mysqld /usr/bin/
+ln -s /opt/mysql/bin/mysql_fix_extensions /usr/bin/
+ln -s /opt/mysql/bin/mysqlslap /usr/bin/
+ln -s /opt/mysql/bin/perror /usr/bin/
+ln -s /opt/mysql/bin/my_print_defaults /usr/bin/
+ln -s /opt/mysql/bin/mysqlcheck /usr/bin/
+ln -s /opt/mysql/bin/mysqld_multi /usr/bin/
+ln -s /opt/mysql/bin/mysqlhotcopy /usr/bin/
+ln -s /opt/mysql/bin/mysqltest /usr/bin/
+ln -s /opt/mysql/bin/replace /usr/bin/
