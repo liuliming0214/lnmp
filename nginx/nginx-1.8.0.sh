@@ -16,12 +16,28 @@
 		sed -i '18,$d' /opt/nginx/nginx.conf
 	echo "
 		include       mime.types;
-		default_type  application/octet-stream;
+        default_type       application/octet-stream;
 
-		sendfile        on;
-		keepalive_timeout  65;
+        charset            UTF-8;
 
-		gzip  on;
+        sendfile           on;
+        tcp_nopush         on;
+        tcp_nodelay        on;
+
+        keepalive_timeout  60;
+        gzip               on;
+        gzip_vary          on;
+
+        gzip_comp_level    6;
+        gzip_buffers       16 8k;
+
+        gzip_min_length    1000;
+        gzip_proxied       any;
+        gzip_disable       \"msie6\";
+
+        gzip_http_version  1.0;
+
+        gzip_types         text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript image/svg+xml;
 
 	    include vhost/*.conf;
 	}" >> /opt/nginx/nginx.conf
