@@ -1,11 +1,15 @@
 #!/bin/bash
 echo "请选择nginx版本，输入对应版本数字:"
 echo "1. nginx-1.8.0"
+echo "2. nginx-1.10.2"
 read nginx
 
 case "$nginx" in
 [1] )
 nginx="1.8.0"
+;;
+[2] )
+nginx="1.10.2"
 ;;
 esac
 
