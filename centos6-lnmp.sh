@@ -128,6 +128,12 @@ sh "php-${php}.sh"
 
 #创建访问目录
 mkdir /var/www
+
+#添加开机启动
+echo "/opt/nginx/nginx" >> /etc/rc.d/rc.local
+echo "/opt/php/sbin/php-fpm" >> /etc/rc.d/rc.local
+echo "/etc/init.d/mysql start" >> /etc/rc.d/rc.local
+
 #-------------------------------下载管理脚本------------------------------
 wget --no-check-certificate https://www.pescms.com/lnmp/status.sh
 echo "Install Complete!"
